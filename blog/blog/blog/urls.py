@@ -31,6 +31,7 @@ def log(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     # 子应用的路由，子应用的名字
-    path('', include(('users.urls','users'), namespace='users'))
+    path('', include(('users.urls','users'), namespace='users')),
+
    # path('', log),
 ]

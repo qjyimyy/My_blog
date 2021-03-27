@@ -50,7 +50,7 @@ var vm = new Vue({
             // 生成一个编号 : 严格一点的使用uuid保证编号唯一， 不是很严谨的情况下，也可以使用时间戳
             this.uuid = this.generateUUID();
             // 设置页面中图片验证码img标签的src属性
-            this.image_code_url = this.host + "/imagecode/?uuid=" + this.uuid + Math.random();
+            this.image_code_url = this.host + "/imagecode/?uuid=" + this.uuid;
         },
         //检查手机号
         check_mobile: function(){

@@ -7,12 +7,13 @@
     <meta charset="utf-8">
     <!-- 网站标题 -->
     <title>登录</title>
+    {% load staticfiles %}
     <!-- 引入bootstrap的css文件 -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
 
     <!-- 引入vuejs -->
-    <script type="text/javascript" src="js/vue-2.5.16.js"></script>
-    <script type="text/javascript" src="js/axios-0.18.0.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/vue-2.5.16.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/axios-0.18.0.min.js' %}"></script>
 </head>
 
 <body>
@@ -35,10 +36,11 @@
         <div class="col-12">
             <div class="col-6">
                 <form class="login" id="login_form" method="POST">
+                    {% csrf_token %}
                     <div class="form-group">
                         <label for="id_login">账号: </label>
                         <input type="text" name="mobile" placeholder="请输入手机号" autofocus="autofocus" required id="id_login" class="form-control" v-model="mobile" @blur="check_mobile"/>
-                        <small class="form-text text-muted ml-1">还没有账号？<a href="../templates/register.html" style="color: cornflowerblue; ">注册新账号</a>
+                        <small class="form-text text-muted ml-1">还没有账号？<a href="{% url 'users:register' %}" style="color: cornflowerblue; ">注册新账号</a>
                         </small>
                     </div>
                     <div class="form-group mb-1">
@@ -58,19 +60,19 @@
     </div>
 </div>
 
-    
+
 <!-- Footer -->
 <footer class="py-3 bg-dark" id="footer">
     <div class="container">
-        <h5 class="m-0 text-center text-white">Copyright @ qiruihua</h5>
+        <h5 class="m-0 text-center text-white">Copyright @ 乔纪阳</h5>
     </div>
 </footer>
 
 </div>
 <!-- 引入js -->
-<script type="text/javascript" src="js/host.js"></script>
-<script type="text/javascript" src="js/common.js"></script>
-<script type="text/javascript" src="js/login.js"></script>
+<script type="text/javascript" src="{% static 'js/host.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/common.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/login.js' %}}"></script>
 </body>
 
 </html>

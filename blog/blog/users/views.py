@@ -10,9 +10,14 @@ import logging
 from django.db import DatabaseError
 from users.models import User
 from libs.yuntongxun.sms import CCP
+from django.shortcuts import redirect
 import re
-
 from random import randint
+from django.urls import reverse
+from django.contrib.auth import login
+from django.contrib.auth import authenticate
+
+
 logger = logging.getLogger('django')
 # Create your views here.
 # 注册视图
@@ -68,8 +73,18 @@ class RegisterView(View):
         except DatabaseError as e:
             logger.error(e)
             return HttpResponseBadRequest('注册失败')
+        # 添加状态保持
+        login(request, user)
+
         # 4.返回响应跳转到指定页面
-        return HttpResponse('注册成功,重定向到首页')
+        # redirect 进行重定向，reverse获取到视图所对应的路由
+        response = redirect(reverse('home:index'))
+
+        # 设置cookie信息，用户信息展示判断，用户信息展示
+        response.set_cookie('is_login', True)
+        response.set_cookie('username', user.username, max_age=7*24*3600)
+
+        return response
 
 # 定义图片验证码视图
 class ImageCodeView(View):
@@ -89,7 +104,7 @@ class ImageCodeView(View):
         # 5返回图片二进制
         return HttpResponse(image, content_type='image/jpeg')
 
-
+# 短信验证码视图
 class SmsCodeView(View):
 
     def get(self, request):
@@ -143,4 +158,54 @@ class SmsCodeView(View):
 
 
         pass
+
+# 登录视图
+class LoginView(View):
+
+
+    def get(self, request):
+
+        return render(request, 'login.html')
+
+    def post(self, request):
+        # 1.接受参数
+        mobile = request.POST.get('mobile')
+        password = request.POST.get('password')
+        remember = request.POST.get('remember')
+        # 2.参数的验证
+        #     2.1验证手机号是否符合规则
+        if not re.match(r'^1[3-9]\d{9}$', mobile):
+            return HttpResponseBadRequest('手机号不正确')
+        #     2.2验证密码是否符合规则
+        if not re.match(r'^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$', password):
+            return HttpResponseBadRequest('密码不正确')
+        # 3.用户认证登录
+        # 采用系统自带的认证方法，如果用户名和密码正确，会返回user对象，如果不正确，会返回None
+        # 默认方法用的username判断，当前使用的mobile
+        # 需要到User模型中修改
+        user = authenticate(mobile=mobile, password=password)
+        if user is None:
+            return HttpResponseBadRequest('用户名或密码错误')
+        if password is None:
+            return HttpResponseBadRequest('用户名或者密码错误')
+
+        # 4.状态保持
+        login(request, user)
+        # 5.判断是否保持登录
+        # 6.为了首页显示设置需要展示的cookie
+        response = redirect(reverse('home:index'))
+        if remember != 'on': # 没有保持登录
+            # 浏览器关闭之后消失
+            request.session.set_expiry(0)
+            response.set_cookie('is_login', True)
+            response.set_cookie('username', user.username, max_age=14*24*3600)
+        else:                # 保持登录
+            # 默认记住两周
+            request.session.set_expiry(None)
+            response.set_cookie('is_login', max_age=14*24*3600)
+            response.set_cookie('username', user.username, max_age=14*24*3600)
+
+
+        # 7.返回响应
+        return response
 

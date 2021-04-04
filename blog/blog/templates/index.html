@@ -65,12 +65,12 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="display: block" v-show="show_menu">
                         <a class="dropdown-item" href="write_blog.html">写文章</a>
                         <a class="dropdown-item" href='./center.html'>个人信息</a>
-                        <a class="dropdown-item" href='#'>退出登录</a>
+                        <a class="dropdown-item" href="{% url 'users:logout' %}">退出登录</a>
                     </div>
                 </li>
                 <!-- 如果用户未登录，则显示登录按钮 -->
                 <li class="nav-item" v-else>
-                    <a class="nav-link" href="login.html">登录</a>
+                    <a class="nav-link" href="{% url 'users:login' %}">登录</a>
                 </li>
             </ul>
         </div>
@@ -83,7 +83,7 @@
             <!-- 文章内容 -->
             <!-- 标题图 -->
             <div class="col-3">
-                <img src="static/img/1.jpg" alt="img/1.jpg" style="max-width:100%; border-radius: 20px">
+                <img src="{% static 'img/1.jpg' %}" alt="img/1.jpg" style="max-width:100%; border-radius: 20px">
             </div>
             <div class="col">
                 <!-- 栏目 -->
@@ -105,9 +105,9 @@
                 <!-- 注脚 -->
                 <p>
                     <!-- 查看、评论、时间 -->
-                    <span><i class="fas fa-eye" style="color: lightskyblue;"></i>590&nbsp;&nbsp;&nbsp;</span>
-                    <span><i class="fas fa-comments" style="color: yellowgreen;"></i>11&nbsp;&nbsp;&nbsp;</span>
-                    <span><i class="fas fa-clock" style="color: pink;"></i>2019-10-22</span>
+                    <span><i class="fa fa-eye" style="color: lightskyblue;"></i>590&nbsp;&nbsp;&nbsp;</span>
+                    <span><i class="fa fa-comments" style="color: yellowgreen;"></i>11&nbsp;&nbsp;&nbsp;</span>
+                    <span><i class="fa fa-clock" style="color: pink;"></i>2019-10-22</span>
                 </p>
             </div>
             <hr style="width: 100%;"/>
@@ -117,7 +117,7 @@
         <!-- 文章内容 -->
         <!-- 标题图 -->
         <div class="col-3">
-            <img src="static/img/1.jpg" alt="avatar" style="max-width:100%; border-radius: 20px">
+            <img src="{% static 'img/1.jpg' %}" alt="avatar" style="max-width:100%; border-radius: 20px">
         </div>
         <div class="col">
             <!-- 栏目 -->
@@ -151,7 +151,7 @@
         <!-- 文章内容 -->
         <!-- 标题图 -->
         <div class="col-3">
-            <img src="static/img/1.jpg" alt="avatar" style="max-width:100%; border-radius: 20px">
+            <img src="{% static 'img/1.jpg' %}" alt="avatar" style="max-width:100%; border-radius: 20px">
         </div>
         <div class="col">
             <!-- 栏目 -->
@@ -185,7 +185,7 @@
         <!-- 文章内容 -->
         <!-- 标题图 -->
         <div class="col-3">
-            <img src="static/img/1.jpg" alt="avatar" style="max-width:100%; border-radius: 20px">
+            <img src="{% static 'img/1.jpg' %}" alt="avatar" style="max-width:100%; border-radius: 20px">
         </div>
         <div class="col">
             <!-- 栏目 -->
@@ -219,7 +219,7 @@
         <!-- 文章内容 -->
         <!-- 标题图 -->
         <div class="col-3">
-            <img src="static/img/1.jpg" alt="avatar" style="max-width:100%; border-radius: 20px">
+            <img src="{% static 'img/1.jpg' %}" alt="avatar" style="max-width:100%; border-radius: 20px">
         </div>
         <div class="col">
             <!-- 栏目 -->
@@ -263,10 +263,10 @@
 </div>
 
 <!-- 引入js -->
-<script type="text/javascript" src="js/host.js"></script>
-<script type="text/javascript" src="js/common.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
-<script type="text/javascript" src="js/jquery.pagination.min.js"></script>
+<script type="text/javascript" src="{% static 'js/host.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/common.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.pagination.min.js' %}"></script>
 <script type="text/javascript">
     $(function () {
         $('#pagination').pagination({

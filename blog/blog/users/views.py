@@ -202,10 +202,27 @@ class LoginView(View):
         else:                # 保持登录
             # 默认记住两周
             request.session.set_expiry(None)
-            response.set_cookie('is_login', max_age=14*24*3600)
+            response.set_cookie('is_login', True, max_age=14*24*3600)
             response.set_cookie('username', user.username, max_age=14*24*3600)
 
 
         # 7.返回响应
         return response
 
+from django.contrib.auth import logout
+# 登出视图
+class LoginOutView(View):
+
+    def get(self, request):
+        # 1.session数据清除
+        logout(request)
+        # 2.删除cookie部分数据
+        response = redirect(reverse('home:index'))
+        response.delete_cookie('is_login')
+        # 3.跳转到首页
+        return response
+# 忘记密码视图
+class ForgetPasswordView(View):
+    def get(self, request):
+
+        return render(request, 'forget_password.html')

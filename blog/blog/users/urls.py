@@ -1,6 +1,7 @@
  # 进行users子应用的视图路由
 from django.urls import path
-from users.views import RegisterView,ImageCodeView,SmsCodeView,LoginView,LoginOutView,ForgetPasswordView
+from users.views import RegisterView, ImageCodeView, SmsCodeView, LoginView, LoginOutView, ForgetPasswordView
+from users.views import UserCenterView
 urlpatterns = [
     # 两个参数：路由，视图函数名
     path('register/', RegisterView.as_view(), name='register'),
@@ -14,4 +15,6 @@ urlpatterns = [
     path('logout/', LoginOutView.as_view(), name='logout'),
     # 忘记密码路由
     path('forgetpassword/', ForgetPasswordView.as_view(), name='forgetpassword'),
+    # 用户中心展示路由
+    path('center/', UserCenterView.as_view(), name='center'),
 ]

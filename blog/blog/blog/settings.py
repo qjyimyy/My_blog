@@ -200,3 +200,6 @@ LOGGING = {
 #  替换系统的User使用自己定义的USer
 #  配置信息为‘子应用名.模型名字’
 AUTH_USER_MODEL = 'users.User'
+
+# 修改系统的未登录跳转链接
+LOGIN_URL = '/login/'

@@ -58,11 +58,11 @@ class RegisterView(View):
         if password2 != password:
             return HttpResponseBadRequest('两次密码不一致')
         #     2.5 短信验证码是否和redis中的一致
-        redis_conn = get_redis_connection('default')
-        redis_sms_code = redis_conn.get('sms:%s'%mobile)
+        redis_conn = get_redis_connection('default')  # 连接redis
+        redis_sms_code = redis_conn.get('sms:%s'%mobile)  # 获取redis中的图片验证码
         if redis_sms_code is None:
             return HttpResponseBadRequest('短信验证码已过期')
-        if smscode != redis_sms_code.decode():
+        if smscode != redis_sms_code.decode():  # 注意要解码
             return HttpResponseBadRequest('短信验证码不正确')
         # 3.保存注册信息
         # create_user 可以对密码进行加密
@@ -193,7 +193,14 @@ class LoginView(View):
         login(request, user)
         # 5.判断是否保持登录
         # 6.为了首页显示设置需要展示的cookie
-        response = redirect(reverse('home:index'))
+
+        # 根据next参数进行页面跳转
+        next_page = request.GET.get('next')
+        if next_page:
+            response = redirect(next_page)
+        else:
+            response = redirect(reverse('home:index'))
+
         if remember != 'on': # 没有保持登录
             # 浏览器关闭之后消失
             request.session.set_expiry(0)
@@ -226,3 +233,84 @@ class ForgetPasswordView(View):
     def get(self, request):
 
         return render(request, 'forget_password.html')
+    def post(self, request):
+        '''
+        # 1.接受数据
+        # 2.验证数据
+        #     2.1 判断参数是否齐全
+        #     2.2 分别验证手机号是否符合规则
+        #     2.3 判断密码是否符合规则
+        #     2.4 判断确认密码和密码是否一致
+        #     2.5 判断图片验证码是否正确
+        # 3.根据手机号进行用户的信息查询
+        # 4.如果手机号存在，则进行密码修改
+        # 5.如果手机号不存在，则进行新用户创建
+        # 6.进行页面跳转
+        # 7.返回响应
+        '''
+        # 1.接受数据
+        mobile = request.POST.get('mobile')
+        password = request.POST.get('password')
+        password2 = request.POST.get('password2')
+        smscode = request.POST.get('sms_code')
+        # 2.验证数据
+        #     2.1 判断参数是否齐全
+        if not all([mobile, password, password2, smscode]):
+            return HttpResponseBadRequest('参数不全')
+        #     2.2 分别验证手机号是否符合规则
+        if not re.match(r'^1[3-9]\d{9}$', mobile):
+            return HttpResponseBadRequest('手机号不符合规则')
+        #     2.3 判断密码是否符合规则
+        if not re.match(r'^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$', password):
+            return HttpResponseBadRequest('密码不符合要求,密码至少包含 数字和英文，长度6-20')
+        #     2.4 判断确认密码和密码是否一致
+        if password2 != password:
+            return HttpResponseBadRequest('两次密码不一致')
+        #     2.5 判断图片验证码是否正确
+        redis_conn = get_redis_connection('default')
+        redis_sms_code = redis_conn.get('sms:%s'%mobile)
+        if redis_sms_code is None:
+            return HttpResponseBadRequest('短信验证码已过期')
+        if smscode != redis_sms_code.decode():
+            return HttpResponseBadRequest('短信验证码不正确')
+        # 3.根据手机号进行用户的信息查询
+        try:
+            user = User.objects.get(mobile = mobile)
+        except User.DoesNotExist:
+            # 如果手机号不存在，则进行新用户创建
+            try:
+                User.objects.create_user(username=mobile,
+                                         mobile=mobile,
+                                         password=password)
+            except Exception:
+                return HttpResponseBadRequest('修改失败,请重试')
+
+        else:
+            # 如果手机号存在，则进行密码修改
+            user.set_password(password)
+            # 注意保存user信息
+            user.save()
+
+
+
+        # 6.进行页面跳转
+        response = redirect(reverse('users:login'))
+        # 7.返回响应
+        return response
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+# 如果用户未登录，则会进行默认跳转，默认跳转链接是account/login/?next=xxx(路由)
+# 用户中心展示视图
+class UserCenterView(LoginRequiredMixin, View):
+    def get(self, request):
+        # 获取登录用户信息
+        user = request.user
+        # 组织获取用户信息
+        context = {
+            'username':user.username,
+            'mobile':user.mobile,
+            'avatar':user.avatar.url if user.avatar else None,  # 判断头像是否存在，不存在就是None
+            'user_desc':user.user_desc
+        }
+        return render(request, 'center.html', context=context)
+

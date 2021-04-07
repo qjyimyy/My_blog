@@ -2,11 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="18fb14a8-7ae6-4f7b-bfa3-fbbf3c228354" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/blog/static/img/tutou.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog/home/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog/home/migrations/0002_auto_20210407_2151.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog/media/article/20210407/tutou.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog/media/article/20210407/tutou_CJPQGUN.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog/media/avatar/20210406/2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog/media/avatar/20210406/2_BVwh3LJ.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog/media/avatar/20210406/2_QBQRSYk.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog/media/avatar/20210406/2_rET0JGN.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog/static/img/2.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog/blog/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/blog/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/static/center.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/center.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blog/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/blog/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/home/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/home/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/home/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/home/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/static/write_blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/write_blog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/templates/center.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/center.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/users/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog/users/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/users/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/users/views.py" afterDir="false" />
     </list>
@@ -44,14 +58,14 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Git\My_blog\blog\blog\templates" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Git\My_blog\blog\blog\static" />
       <recent name="E:\Git\My_blog\blog\utils" />
       <recent name="E:\Git\My_blog\blog\blog\libs" />
       <recent name="E:\Git\My_blog\blog\blog" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\Git\My_blog\blog\blog\templates" />
     </key>
   </component>
   <component name="RunManager" selected="Python.manage">
@@ -231,49 +245,60 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1616936304200" />
-    <state width="1537" height="217" key="GridCell.Tab.0.bottom" timestamp="1617634511834">
+    <state width="1515" height="260" key="GridCell.Tab.0.bottom" timestamp="1617805291185">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1537" height="217" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1617634511834" />
-    <state width="1537" height="217" key="GridCell.Tab.0.center" timestamp="1617634511834">
+    <state width="1515" height="260" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1617805291185" />
+    <state width="1515" height="260" key="GridCell.Tab.0.center" timestamp="1617805291185">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1537" height="217" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1617634511834" />
-    <state width="1537" height="217" key="GridCell.Tab.0.left" timestamp="1617634511834">
+    <state width="1515" height="260" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1617805291185" />
+    <state width="1515" height="260" key="GridCell.Tab.0.left" timestamp="1617805291185">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1537" height="217" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1617634511834" />
-    <state width="1537" height="217" key="GridCell.Tab.0.right" timestamp="1617634511834">
+    <state width="1515" height="260" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1617805291185" />
+    <state width="1515" height="260" key="GridCell.Tab.0.right" timestamp="1617805291185">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1537" height="217" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1617634511834" />
-    <state width="1537" height="269" key="GridCell.Tab.1.bottom" timestamp="1617549155121">
+    <state width="1515" height="260" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1617805291185" />
+    <state width="1515" height="260" key="GridCell.Tab.1.bottom" timestamp="1617805291185">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1537" height="269" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1617549155121" />
-    <state width="1537" height="269" key="GridCell.Tab.1.center" timestamp="1617549155121">
+    <state width="1515" height="260" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1617805291185" />
+    <state width="1515" height="260" key="GridCell.Tab.1.center" timestamp="1617805291185">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1537" height="269" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1617549155121" />
-    <state width="1537" height="269" key="GridCell.Tab.1.left" timestamp="1617549155121">
+    <state width="1515" height="260" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1617805291185" />
+    <state width="1515" height="260" key="GridCell.Tab.1.left" timestamp="1617805291185">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1537" height="269" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1617549155121" />
-    <state width="1537" height="269" key="GridCell.Tab.1.right" timestamp="1617549155121">
+    <state width="1515" height="260" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1617805291185" />
+    <state width="1515" height="260" key="GridCell.Tab.1.right" timestamp="1617805291185">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1537" height="269" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1617549155121" />
+    <state width="1515" height="260" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1617805291185" />
     <state x="270" y="55" key="SettingsEditor" timestamp="1616462675816">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="270" y="55" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1616462675816" />
-    <state x="449" y="237" key="com.intellij.ide.util.TipDialog" timestamp="1617629771101">
+    <state x="449" y="237" key="com.intellij.ide.util.TipDialog" timestamp="1617796640146">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="449" y="237" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1617629771101" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1617456936743">
+    <state x="449" y="237" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1617796640146" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1617796731106">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1617456936743" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1617796731106" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/blog/users/views.py</url>
+          <line>370</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

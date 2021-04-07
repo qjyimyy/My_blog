@@ -11,7 +11,7 @@ class User(AbstractUser):
     user_desc = models.CharField(max_length=400, blank=True)
     # 修改认证的字段为手机号
     USERNAME_FIELD = 'mobile'
-    # 创建超级管理员的需要必须输入的字段
+    # 创建超级管理员的需要必须输入的字段(不包括手机和密码)
     REQUIRED_FIELDS = ['username', 'email']
 
 

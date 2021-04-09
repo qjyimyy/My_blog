@@ -3,6 +3,9 @@ from django.views import View
 from home.models import ArticleCategory, Article
 from django.http.response import HttpResponseNotFound
 from django.core.paginator import Paginator,EmptyPage
+from django.shortcuts import redirect
+from django.urls import reverse
+from home.models import Comment
 
 class IndexView(View):
     def get(self, request):
@@ -61,6 +64,10 @@ class DetailView(View):
         # 1.接受文章ID信息
         # 2. 根据文章id进行文章数据的查询
         # 3. 查询分类数据
+        # 获取分页请求参数
+        # 根据文章信息查询评论数据
+        # 创建分页器
+        # 分页处理
         # 4.组织模板数据
         '''
         # 1.接受文章ID信息
@@ -70,12 +77,89 @@ class DetailView(View):
             article = Article.objects.get(id=id)
         except Article.DoesNotExist:
             return render(request, '404.html')  # 展示404
+        else:
+            # 让文章浏览器加1
+            article.total_views += 1
+            article.save()
         # 3. 查询分类数据
         categories = ArticleCategory.objects.all()
+        # 查询浏览量前10的文章数据
+        hot_articles = Article.objects.order_by('-total_views')[:9]
+
+        # 获取分页请求参数
+        page_size = request.GET.get('page_size', 10)
+        page_num = request.GET.get('page_num', 1)
+
+        # 根据文章信息查询评论数据
+        comments = Comment.objects.filter(article=article).order_by('-created_time')
+        # 获取评论总数
+        total_comments = comments.count()
+        # 创建分页器
+        paginator = Paginator(comments, page_size)
+        # 分页处理
+        try:
+            page_comments = paginator.page(page_num)
+        except EmptyPage:
+            return HttpResponseNotFound('当前页面为空')
+
+        # 总页数
+        total_page = paginator.num_pages
+
         # 4.组织模板数据
         context ={
             'categories':categories,
             'category':article.category,
-            'article':article
+            'article':article,
+            'hot_articles':hot_articles,
+            'total_comments':total_comments,
+            'comments':page_comments,
+            'page_size':page_size,
+            'total_page':total_page,
+            'page_num':page_num
+
         }
         return render(request, 'detail.html', context=context)
+
+    def post(self, request):
+        '''
+        # 1.接收用户信息
+        # 2.判断用户是否登录
+        # 3.登录用户可以接受form数据
+        #     3.1接收评论数据
+        #     3.2验证文章是否存在
+        #     3.3保存评论数据
+        #     3.4修改文章的评论数量
+        # 4.未登录用户则跳转到登录页面
+        '''
+        # 1.接收用户信息
+        user = request.user
+        # 2.判断用户是否登录
+        if user and user.is_authenticated:
+
+            # 3.登录用户可以接受form数据
+            #     3.1接收评论数据
+            id = request.POST.get('id')
+            content = request.POST.get('content')
+            #     3.2验证文章是否存在
+            try:
+                article = Article.objects.get(id=id)
+            except Article.DoesNotExist:
+                return HttpResponseNotFound('404.html')
+            #     3.3保存评论数据
+            Comment.objects.create(
+                content=content,
+                article=article,
+                user=user
+            )
+            #     3.4修改文章的评论数量
+            article.comments_count+=1
+            article.save()
+
+            # 刷新当前页面
+            path = reverse('home:detail')+'?id={}'.format(article.id)
+            return redirect(path)
+        else:
+        # 4.未登录用户则跳转到登录页面
+            return redirect(reverse('users:login'))
+
+

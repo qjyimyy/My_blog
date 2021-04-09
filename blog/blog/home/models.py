@@ -20,6 +20,7 @@ class ArticleCategory(models.Model):
         verbose_name_plural = verbose_name
 from users.models import User
 from django.utils import timezone
+# 文章模型
 class Article(models.Model):
     '''
     # 作者
@@ -68,5 +69,28 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+# 评论模型
+class Comment(models.Model):
+    '''
+    # 1.评论内容
+    #     # 评论文章
+    #     # 评论用户
+    #     # 评论时间
+    '''
 
+    # 评论内容
+    content = models.TextField()
+    # 评论文章
+    article = models.ForeignKey(Article, on_delete=models.SET_NULL, null=True)
+    # 评论用户
+    user = models.ForeignKey('users.User', on_delete=models.SET_NULL, null=True)
+    # 评论时间
+    created_time = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.article.title
+
+    class Meta:
+        db_table = 'tb_comment'
+        verbose_name = '评论管理'
+        verbose_name_plural = verbose_name
